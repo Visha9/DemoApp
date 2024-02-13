@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GithubApp</string>
+    <string name="users_screen_top_bar_title">Users</string>
+    <string name="repos_score_title">Repos</string>
+    <string name="followers_score_title">Followers</string>
+    <string name="following_score_title">Following</string>
+    <string name="language_not_defined">Language not defined</string>
+    <string name="no_description_informed">No description</string>
+    <string name="unexpected_error_occured">Unexpected error occurred!</string>
+</resources>
