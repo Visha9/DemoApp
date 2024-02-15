@@ -52,6 +52,8 @@ android {
 val hiltVersion = rootProject.extra.get("hilt_version") as String
 val coreKtxVersion = rootProject.extra.get("core_ktx_version") as String
 val mockkVersion = rootProject.extra.get("mockk_version") as String
+val coroutineTestVersion = rootProject.extra.get("coroutine_test_version") as String
+val coreArchVersion = rootProject.extra.get("core_arch_version") as String
 dependencies {
     implementation(project(":domain"))
     implementation("androidx.core:core-ktx:$coreKtxVersion")
@@ -60,6 +62,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     testImplementation("junit:junit:4.13.2")
     testImplementation ("io.mockk:mockk:$mockkVersion")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion")
+    testImplementation ("android.arch.core:core-testing:$coreArchVersion")
     //Dagger - Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")

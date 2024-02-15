@@ -22,12 +22,7 @@ class UserDetailViewModel @Inject constructor(
     private val _state = mutableStateOf(UserDetailState())
     val state: State<UserDetailState> = _state
 
-    init {
-        getUser()
-
-    }
-
-    private fun getUser() {
+    fun getUser() {
         val userId = savedStateHandle.get<String>("userId") ?: ""
         userDetailUseCase.invoke(userId).onEach { result ->
             when (result) {

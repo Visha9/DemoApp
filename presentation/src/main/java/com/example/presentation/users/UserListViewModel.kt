@@ -17,23 +17,21 @@ class UserListViewModel @Inject constructor(private val usersListUsecase: com.ex
     private val _state = mutableStateOf(UserListState())
     val state: State<UserListState> = _state
 
-    init {
-        getUsersList()
-    }
-
     /**
      * This function get the Users List from Repository via UserListUsecase
      */
-    private fun getUsersList() {
+    fun getUsersList() {
         usersListUsecase.invoke().onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value = UserListState(userList = result.data ?: emptyList())
                 }
+
                 is Resource.Error -> {
                     _state.value =
                         UserListState(error = result.message ?: "Unexpected error occurred!")
                 }
+
                 is Resource.Loading -> {
                     _state.value = UserListState(isLoading = true)
                 }
