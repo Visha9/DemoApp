@@ -20,7 +20,7 @@ class UserListViewModel @Inject constructor(private val usersListUsecase: com.ex
     /**
      * This function get the Users List from Repository via UserListUsecase
      */
-    fun getUsersList() {
+    suspend fun getUsersList() {
         usersListUsecase.invoke().onEach { result ->
             when (result) {
                 is Resource.Success -> {

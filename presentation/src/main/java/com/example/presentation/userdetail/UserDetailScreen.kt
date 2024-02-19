@@ -23,6 +23,7 @@ import com.example.presentation.userdetail.components.ScoreSession
 fun UserDetailScreen(viewModel: UserDetailViewModel = hiltViewModel()) {
     LaunchedEffect(Unit, block = {
         viewModel.getUser()
+        viewModel.getUserRepositories()
     })
     val state = viewModel.state.value
     if (state.isLoading) {
@@ -38,7 +39,7 @@ fun UserDetailScreen(viewModel: UserDetailViewModel = hiltViewModel()) {
             ) {
                 ReposList(
                     header = { RepositoryHeader(it) },
-                    reposList = it.repositories
+                    reposList = state.repositories
                 )
             }
 

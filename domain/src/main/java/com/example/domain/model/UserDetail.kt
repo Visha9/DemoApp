@@ -8,6 +8,5 @@ data class UserDetail(
     val blogUrl: String = "",
     val publicRepos: Int = 0,
     val followers: Int = 0,
-    val following: Int = 0,
-    val repositories: List<Repository> = emptyList()
+    val following: Int = 0
 )

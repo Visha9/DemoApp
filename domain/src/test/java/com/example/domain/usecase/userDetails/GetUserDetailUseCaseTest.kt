@@ -1,16 +1,21 @@
-package com.example.domain.usecase
+package com.example.domain.usecase.userDetails
 
 
+import com.example.domain.Resource
 import com.example.domain.model.UserDetail
 import com.example.domain.repository.GithubRepository
 import com.example.domain.usecase.getUserDetail.GetUserDetailUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetUserDetailUseCaseTest {
     private val githubRepository: GithubRepository = mockk()
     private lateinit var userDetailUseCase: GetUserDetailUseCase
@@ -24,14 +29,14 @@ class GetUserDetailUseCaseTest {
 
     @Test
     fun `GIVEN user id WHEN usecase invoked THEN verify repository called`() =
-        runBlocking {
+        runTest {
             coEvery {
-                githubRepository.getUser("ABCD")
+                githubRepository.getUser("user_id")
 
-            } returns UserDetail()
-            userDetailUseCase.invoke("ABCD")
+            } returns flow { emit(Resource.Loading()) }
+            userDetailUseCase.invoke("user_id")
             coVerify {
-                githubRepository.getUser("ABCD")
+                githubRepository.getUser("user_id")
             }
         }
 }

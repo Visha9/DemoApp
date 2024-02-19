@@ -7,6 +7,7 @@ buildscript {
         set("mockk_version", "1.12.3")
         set("coroutine_test_version", "1.6.1")
         set("core_arch_version", "1.1.1")
+        set("junit_version", "4.13.2")
 
 
     }
