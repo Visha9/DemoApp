@@ -1,6 +1,6 @@
 package com.example.domain.model
 
-data class Repository(
+data class RepositoryDomainModel(
     val id: Long = 0,
     val name: String = "",
     val description: String? = null,

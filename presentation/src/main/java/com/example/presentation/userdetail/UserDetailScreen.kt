@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.domain.model.UserDetail
+import com.example.domain.model.UserDetailDomainModel
 import com.example.presentation.R
 import com.example.presentation.common.LoadingItem
 import com.example.presentation.userdetail.components.ReposList
@@ -50,7 +50,7 @@ fun UserDetailScreen(viewModel: UserDetailViewModel = hiltViewModel()) {
 
 @Composable
 fun RepositoryHeader(
-    userDetail: UserDetail
+    userDetail: UserDetailDomainModel
 ) {
     Column {
         ScoreSession(userDetail)
@@ -61,7 +61,7 @@ fun RepositoryHeader(
 }
 
 @Composable
-fun UserDetailSession(userDetail: UserDetail) {
+fun UserDetailSession(userDetail: UserDetailDomainModel) {
     Text(
         text = userDetail.name,
         style = MaterialTheme.typography.headlineSmall,

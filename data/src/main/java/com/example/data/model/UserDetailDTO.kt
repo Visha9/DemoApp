@@ -1,7 +1,7 @@
 package com.example.data.model
 
-import com.example.domain.model.Repository
-import com.example.domain.model.UserDetail
+import com.example.domain.model.RepositoryDomainModel
+import com.example.domain.model.UserDetailDomainModel
 import com.google.gson.annotations.SerializedName
 
 data class UserDetailDTO(
@@ -13,11 +13,11 @@ data class UserDetailDTO(
     @SerializedName("public_repos") val publicRepos: Int = 0,
     @SerializedName("followers") val followers: Int = 0,
     @SerializedName("following") val following: Int = 0,
-    val repositories: List<Repository> = emptyList()
+    val repositories: List<RepositoryDomainModel> = emptyList()
 )
 
-fun UserDetailDTO.toUserDetail(): UserDetail {
-    return UserDetail(
+fun UserDetailDTO.toUserDetail(): UserDetailDomainModel {
+    return UserDetailDomainModel(
         avatarUrl = this.avatarUrl,
         name = this.name,
         location = this.location,

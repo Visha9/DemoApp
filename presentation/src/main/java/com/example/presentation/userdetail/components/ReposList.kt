@@ -6,12 +6,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.domain.model.Repository
+import com.example.domain.model.RepositoryDomainModel
 
 @Composable
 fun ReposList(
     header: @Composable () -> Unit,
-    reposList: List<Repository>,
+    reposList: List<RepositoryDomainModel>,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         LazyColumn {

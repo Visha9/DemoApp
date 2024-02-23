@@ -1,6 +1,6 @@
 package com.example.domain.model
 
-data class UserDetail(
+data class UserDetailDomainModel(
     val avatarUrl: String = "",
     val htmlUrl: String = "",
     val name: String = "",

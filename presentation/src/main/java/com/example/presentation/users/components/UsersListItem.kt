@@ -15,14 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
-import com.example.domain.model.User
+import com.example.domain.model.UserDomainModel
 import com.example.presentation.R
 import com.example.presentation.common.RoundedImage
 
 @Composable
 fun UsersListItem(
-    user: User,
-    onItemClick: (User) -> Unit
+    user: UserDomainModel,
+    onItemClick: (UserDomainModel) -> Unit
 ) {
     val paddingXXSmall = dimensionResource(id = R.dimen.padding_xxsmall)
     val paddingMedium = dimensionResource(id = R.dimen.padding_medium)

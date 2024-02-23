@@ -2,7 +2,8 @@ package com.example.presentation.userDetails
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.domain.Resource
-import com.example.domain.model.UserDetail
+import com.example.domain.model.RepositoryDomainModel
+import com.example.domain.model.UserDetailDomainModel
 import com.example.domain.usecase.getUserDetail.GetUserDetailUseCase
 import com.example.domain.usecase.getUserDetail.GetUserRepoUsecase
 import com.example.presentation.dispatchers.MainDispatcherRule
@@ -39,7 +40,7 @@ class UserDetailViewModelTest {
     fun `GIVEN user id WHEN getUser invoked then VERIFY success scenario called`() = runTest {
         coEvery {
             getUserDetailUseCase.invoke("123")
-        } returns flowOf(Resource.Success(UserDetail(name = "test")))
+        } returns flowOf(Resource.Success(UserDetailDomainModel(name = "test")))
         userListViewModel.getUser()
         val result = userListViewModel.state
         assert(result.value.userDetail?.name.equals("test"))
@@ -64,6 +65,29 @@ class UserDetailViewModelTest {
         userListViewModel.getUser()
         val result = userListViewModel.state
         assert(result.value.isLoading)
+    }
+    @Test
+    fun `GIVEN user id WHEN getRepo invoked then VERIFY success scenario called`() = runTest {
+        coEvery {
+            getUserRepoUsecase.invoke("123")
+        } returns flowOf(Resource.Success(listOf(RepositoryDomainModel(
+            name = "test"
+        ))))
+        userListViewModel.getUserRepositories()
+        val result = userListViewModel.state
+        assert(result.value.repositories.size == 1)
+
+    }
+
+    @Test
+    fun `GIVEN user id WHEN getRepo invoked then VERIFY error scenario called`() = runTest {
+        coEvery {
+            getUserRepoUsecase.invoke("123")
+        } returns flowOf(Resource.Error(""))
+        userListViewModel.getUserRepositories()
+        val result = userListViewModel.state
+        assert(result.value.error.equals(""))
+
     }
 }
 

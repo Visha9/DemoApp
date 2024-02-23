@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import com.example.domain.model.Repository
+import com.example.domain.model.RepositoryDomainModel
 import com.example.presentation.R
 import java.util.Locale
 
 @Composable
-fun ReposListItem(repo: Repository) {
+fun ReposListItem(repo: RepositoryDomainModel) {
     val paddingXXSmall = dimensionResource(id = R.dimen.padding_xxsmall)
     val paddingSmall = dimensionResource(id = R.dimen.padding_small)
     val paddingMedium = dimensionResource(id = R.dimen.padding_medium)
@@ -70,7 +70,7 @@ fun ReposListItem(repo: Repository) {
 }
 
 @Composable
-fun CounterSession(repo: Repository) {
+fun CounterSession(repo: RepositoryDomainModel) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start

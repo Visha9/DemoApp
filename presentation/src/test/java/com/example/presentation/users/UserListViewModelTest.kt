@@ -1,7 +1,7 @@
 package com.example.presentation.users
 
 import com.example.domain.Resource
-import com.example.domain.model.User
+import com.example.domain.model.UserDomainModel
 import com.example.domain.usecase.getUserList.GetUserListUsecase
 import com.example.presentation.dispatchers.MainDispatcherRule
 import io.mockk.coEvery
@@ -30,7 +30,7 @@ class UserListViewModelTest {
 
     @Test
     fun ` WHEN getUsers invoked then VERIFY success scenario called`() = runTest {
-        val listOfItems = listOf(User(userId = "123"))
+        val listOfItems = listOf(UserDomainModel(userId = "123"))
         coEvery {
             userListUsecase.invoke()
         } returns flowOf(Resource.Success(listOfItems))

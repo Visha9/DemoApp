@@ -1,6 +1,6 @@
 package com.example.data.model
 
-import com.example.domain.model.User
+import com.example.domain.model.UserDomainModel
 import com.google.gson.annotations.SerializedName
 
 data class UserDTO(
@@ -13,8 +13,8 @@ data class UserDTO(
 )
 
 
-fun UserDTO.toUser(): User {
-    return User(
+fun UserDTO.toUser(): UserDomainModel {
+    return UserDomainModel(
         userId = this.userId,
         avatarUrl = this.avatarUrl
     )
