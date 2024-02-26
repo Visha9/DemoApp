@@ -8,4 +8,6 @@
     <string name="no_description_informed">No description</string>
     <string name="unexpected_error_occured">Unexpected error occurred!</string>
     <string name="loading_please_wait">Loading please wait...</string>
+    <string name="alert">Alert!</string>
+    <string name="ok">Ok</string>
 </resources>

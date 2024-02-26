@@ -9,12 +9,12 @@ plugins {
 
 
 android {
+    val compileSdkVersion = rootProject.extra.get("compile_sdk_version") as Int
+    val kotlinCompilerExtVersion = rootProject.extra.get("kotlin_compiler_extension_version") as String
     namespace = "com.example.presentation"
-    compileSdk = 34
+    compileSdk = compileSdkVersion
 
     defaultConfig {
-        minSdk = 26
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -41,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = kotlinCompilerExtVersion
     }
     repositories {
         gradlePluginPortal()

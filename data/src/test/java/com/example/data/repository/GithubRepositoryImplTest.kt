@@ -1,19 +1,21 @@
 package com.example.data.repository
 
 
+import android.net.http.HttpException
+import com.example.data.mapper.UserMapper
+import com.example.data.model.RepositoryDTO
+import com.example.data.model.UserDTO
 import com.example.data.model.UserDetailDTO
 import com.example.data.remote.GithubApi
 import com.example.domain.Resource
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class GithubRepositoryImplTest {
     private lateinit var githubRepositoryImpl: GithubRepositoryImpl
     private var githubApiService: GithubApi = mockk()
@@ -22,7 +24,8 @@ class GithubRepositoryImplTest {
     @Before
     fun setUp() {
         githubRepositoryImpl = GithubRepositoryImpl(
-            githubApiService
+            githubApiService,
+            UserMapper()
         )
     }
 
@@ -31,7 +34,7 @@ class GithubRepositoryImplTest {
     fun `GIVEN users list WHEN repository called then emit Loading & Success`() = runTest {
         coEvery {
             githubApiService.getUsers()
-        } returns emptyList()
+        } returns listOf(UserDTO())
         val result = githubRepositoryImpl.getUsersList().toList()
         assert(result[0] is Resource.Loading)
         assert(result[1] is Resource.Success)
@@ -71,7 +74,7 @@ class GithubRepositoryImplTest {
     fun `GIVEN user id WHEN getRepo repository called then emit Error`() = runTest {
         coEvery {
             githubApiService.getRepos("user_id")
-        } throws IOException("")
+        } throws HttpException("error",Exception())
         val result = githubRepositoryImpl.getRepo("user_id").toList()
         assert(result[0] is Resource.Loading)
         assert(result[1] is Resource.Error)
@@ -81,7 +84,7 @@ class GithubRepositoryImplTest {
     fun `GIVEN user id WHEN getRepo repository called then emit Success`() = runTest {
         coEvery {
             githubApiService.getRepos("user_id")
-        } returns emptyList()
+        } returns listOf(RepositoryDTO())
         val result = githubRepositoryImpl.getRepo("user_id").toList()
         assert(result[0] is Resource.Loading)
         assert(result[1] is Resource.Success)

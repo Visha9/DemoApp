@@ -1,6 +1,5 @@
 package com.example.data.model
 
-import com.example.domain.model.RepositoryDomainModel
 import com.google.gson.annotations.SerializedName
 
 data class RepositoryDTO(
@@ -13,15 +12,3 @@ data class RepositoryDTO(
     @SerializedName("language") val language: String? = null,
     @SerializedName("html_url") val htmlUrl: String = "",
 )
-
-fun RepositoryDTO.toRepository(): RepositoryDomainModel {
-    return RepositoryDomainModel(
-        id = this.id,
-        name = this.name,
-        description = this.description,
-        watchersCount = this.watchersCount,
-        forksCount = this.forksCount,
-        language = this.language
-    )
-}
-

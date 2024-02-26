@@ -7,12 +7,11 @@ plugins {
 }
 
 android {
+    val compileSdkVersion = rootProject.extra.get("compile_sdk_version") as Int
     namespace = "com.example.data"
-    compileSdk = 34
+    compileSdk = compileSdkVersion
 
     defaultConfig {
-        minSdk = 26
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {

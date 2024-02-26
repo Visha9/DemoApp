@@ -1,6 +1,6 @@
 plugins {
-    id ("com.android.application")
-    id ("org.jetbrains.kotlin.android")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
     id("kotlin-android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
@@ -10,14 +10,14 @@ plugins {
 
 android {
     namespace = "com.example.githubapp"
-    compileSdk = 34
+    compileSdk = rootProject.extra.get("compile_sdk_version") as Int
 
     defaultConfig {
         applicationId = "com.example.githubapp"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = rootProject.extra.get("min_sdk_version") as Int
+        targetSdk = rootProject.extra.get("compile_sdk_version") as Int
+        versionCode = rootProject.extra.get("version_code") as Int
+        versionName = rootProject.extra.get("version_name") as String
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,6 +26,24 @@ android {
     }
 
     buildTypes {
+        debug {
+            versionNameSuffix = ".debug"
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+        create("production") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        create("dev") {
+            versionNameSuffix = ".debug"
+            isDebuggable = true
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -45,13 +63,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion =
+            rootProject.extra.get("kotlin_compiler_extension_version") as String
     }
-//    packaging {
-//        resources {
-//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//        }
-//    }
     repositories {
         gradlePluginPortal()
         google()

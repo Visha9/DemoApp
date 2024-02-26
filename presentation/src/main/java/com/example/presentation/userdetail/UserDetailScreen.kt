@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.domain.model.UserDetailDomainModel
 import com.example.presentation.R
+import com.example.presentation.common.AlertDialog
 import com.example.presentation.common.LoadingItem
 import com.example.presentation.userdetail.components.ReposList
 import com.example.presentation.userdetail.components.ScoreSession
@@ -26,24 +27,29 @@ fun UserDetailScreen(viewModel: UserDetailViewModel = hiltViewModel()) {
         viewModel.getUserRepositories()
     })
     val state = viewModel.state.value
-    if (state.isLoading) {
-        LoadingItem(
+    when {
+        state.isLoading -> LoadingItem(
             modifier = Modifier
                 .fillMaxSize(),
             text = stringResource(R.string.loading_please_wait)
         )
-    } else {
-        state.userDetail?.let {
-            Column(
-                modifier = Modifier.padding(10.dp)
-            ) {
-                ReposList(
-                    header = { RepositoryHeader(it) },
-                    reposList = state.repositories
-                )
-            }
 
-        }
+        state.error.isNotEmpty() -> AlertDialog(
+            state.error
+        )
+
+        else ->
+            state.userDetail?.let {
+                Column(
+                    modifier = Modifier.padding(10.dp)
+                ) {
+                    ReposList(
+                        header = { RepositoryHeader(it) },
+                        reposList = state.repositories
+                    )
+                }
+
+            }
     }
 
 }

@@ -8,6 +8,11 @@ buildscript {
         set("coroutine_test_version", "1.6.1")
         set("core_arch_version", "1.1.1")
         set("junit_version", "4.13.2")
+        set("compile_sdk_version", 34)
+        set("min_sdk_version", 26)
+        set("version_code", 1)
+        set("version_name", "1.0")
+        set("kotlin_compiler_extension_version", "1.5.1")
 
 
     }

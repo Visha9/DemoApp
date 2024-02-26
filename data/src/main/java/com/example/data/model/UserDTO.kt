@@ -11,11 +11,3 @@ data class UserDTO(
     @SerializedName("html_url")
     val htmlUrl: String = "",
 )
-
-
-fun UserDTO.toUser(): UserDomainModel {
-    return UserDomainModel(
-        userId = this.userId,
-        avatarUrl = this.avatarUrl
-    )
-}
