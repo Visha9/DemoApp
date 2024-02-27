@@ -66,13 +66,20 @@ class UserDetailViewModelTest {
         val result = userListViewModel.state
         assert(result.value.isLoading)
     }
+
     @Test
     fun `GIVEN user id WHEN getRepo invoked then VERIFY success scenario called`() = runTest {
         coEvery {
             getUserRepoUsecase.invoke("123")
-        } returns flowOf(Resource.Success(listOf(RepositoryDomainModel(
-            name = "test"
-        ))))
+        } returns flowOf(
+            Resource.Success(
+                listOf(
+                    RepositoryDomainModel(
+                        name = "test"
+                    )
+                )
+            )
+        )
         userListViewModel.getUserRepositories()
         val result = userListViewModel.state
         assert(result.value.repositories.size == 1)
@@ -88,6 +95,16 @@ class UserDetailViewModelTest {
         val result = userListViewModel.state
         assert(result.value.error.equals(""))
 
+    }
+
+    @Test
+    fun `GIVEN user id WHEN getRepo invoked then VERIFY loading scenario called`() = runTest {
+        coEvery {
+            getUserRepoUsecase.invoke("123")
+        } returns flowOf(Resource.Loading())
+        userListViewModel.getUserRepositories()
+        val result = userListViewModel.state
+        assert(result.value.isLoading)
     }
 }
 

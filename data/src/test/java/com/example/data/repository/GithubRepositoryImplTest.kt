@@ -1,7 +1,6 @@
 package com.example.data.repository
 
 
-import android.net.http.HttpException
 import com.example.data.mapper.UserMapper
 import com.example.data.model.RepositoryDTO
 import com.example.data.model.UserDTO
@@ -14,6 +13,8 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 
 class GithubRepositoryImplTest {
@@ -74,7 +75,7 @@ class GithubRepositoryImplTest {
     fun `GIVEN user id WHEN getRepo repository called then emit Error`() = runTest {
         coEvery {
             githubApiService.getRepos("user_id")
-        } throws HttpException("error",Exception())
+        } throws HttpException(Response.success(""))
         val result = githubRepositoryImpl.getRepo("user_id").toList()
         assert(result[0] is Resource.Loading)
         assert(result[1] is Resource.Error)
