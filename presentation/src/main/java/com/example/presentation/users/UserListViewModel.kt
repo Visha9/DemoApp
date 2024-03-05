@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.Resource
+import com.example.domain.usecase.getUserList.GetUserListUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class UserListViewModel @Inject constructor(private val usersListUsecase: com.example.domain.usecase.getUserList.GetUserListUsecase) :
+class UserListViewModel @Inject constructor(private val usersListUsecase: GetUserListUsecase) :
     ViewModel() {
 
     private val _state = mutableStateOf(UserListState())

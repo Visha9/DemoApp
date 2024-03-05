@@ -9,6 +9,7 @@ import com.example.data.remote.GithubApi
 import com.example.domain.Resource
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -17,6 +18,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GithubRepositoryImplTest {
     private lateinit var githubRepositoryImpl: GithubRepositoryImpl
     private var githubApiService: GithubApi = mockk()
