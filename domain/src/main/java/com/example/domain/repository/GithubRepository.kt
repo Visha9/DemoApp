@@ -7,7 +7,7 @@ import com.example.domain.model.UserDetailDomainModel
 import kotlinx.coroutines.flow.Flow
 
 interface GithubRepository {
-    suspend fun getUsersList(): Flow<Resource<List<UserDomainModel>>>
-    suspend fun getUser(userId: String): Flow<Resource<UserDetailDomainModel>>
-    suspend fun getRepo(userId: String): Flow<Resource<List<RepositoryDomainModel>>>
+    suspend fun getUsersList(): Resource<List<UserDomainModel>>
+    suspend fun getUser(userId: String): Resource<UserDetailDomainModel>
+    suspend fun getRepo(userId: String): Resource<List<RepositoryDomainModel>>
 }

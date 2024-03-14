@@ -7,7 +7,6 @@ import com.example.domain.model.RepositoryDomainModel
 import com.example.domain.model.UserDetailDomainModel
 import com.example.domain.model.UserDomainModel
 import com.example.domain.repository.GithubRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GithubRepositoryImpl @Inject constructor(
@@ -15,15 +14,15 @@ class GithubRepositoryImpl @Inject constructor(
     private val mapper: UserMapper
 ) :
     GithubRepository, HandleApiResponse() {
-    override suspend fun getUsersList(): Flow<Resource<List<UserDomainModel>>> {
+    override suspend fun getUsersList(): Resource<List<UserDomainModel>> {
         return fetchApiData({ api.getUsers() }, mapper::mapToUser)
     }
 
-    override suspend fun getUser(userId: String): Flow<Resource<UserDetailDomainModel>> {
+    override suspend fun getUser(userId: String): Resource<UserDetailDomainModel> {
         return fetchApiData({ api.getUser(userId) }, mapper::mapToUserDetail)
     }
 
-    override suspend fun getRepo(userId: String): Flow<Resource<List<RepositoryDomainModel>>> {
+    override suspend fun getRepo(userId: String): Resource<List<RepositoryDomainModel>> {
         return fetchApiData({ api.getRepos(userId) }, mapper::mapToUserRepos)
     }
 

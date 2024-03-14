@@ -6,6 +6,7 @@ import javax.inject.Inject
 
 
 class GetUserListUsecase @Inject constructor(private val repository: GithubRepository) {
-    suspend operator fun invoke() = repository.getUsersList()
+
+    suspend  fun invoke() = repository.getUsersList()
 
 }

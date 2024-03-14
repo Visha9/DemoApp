@@ -1,33 +1,32 @@
 package com.example.data.repository
 
 import com.example.domain.Resource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import java.io.IOException
+import retrofit2.Response
 
 private const val NETWORK_ERROR_MESSAGE = "Couldn't reach to server, Please check you internet."
 
 abstract class HandleApiResponse {
     suspend fun <T, R> fetchApiData(
-        response: suspend () -> T,
+        response: suspend () -> Response<T>,
         mapper: (T) -> R
-    ): Flow<Resource<R>> {
-        return flow {
-            try {
-                emit(Resource.Loading())
-                val result = mapper(response())
-                emit(Resource.Success(result))
-            } catch (e: HttpException) {
-                emit(
-                    Resource.Error(
-                        e.localizedMessage
-                    )
-                )
-            } catch (e: IOException) {
-                emit(Resource.Error(NETWORK_ERROR_MESSAGE))
+    ): Resource<R> {
+        try {
+            val result = response()
+            return if (result.isSuccessful && result.body() != null) {
+                Resource.Success(mapper(result.body()!!))
+            } else {
+                Resource.Error(NETWORK_ERROR_MESSAGE)
             }
+
+        } catch (e: HttpException) {
+            return Resource.Error(
+                e.localizedMessage
+            )
+        } catch (e: Exception) {
+            return Resource.Error(NETWORK_ERROR_MESSAGE)
         }
+
     }
 }
 

@@ -1,38 +1,39 @@
 package com.example.presentation.users
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.Resource
 import com.example.domain.usecase.getUserList.GetUserListUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(private val usersListUsecase: GetUserListUsecase) :
     ViewModel() {
 
-    private val _state = mutableStateOf(UserListState())
-    val state: State<UserListState> = _state
+    private val _state = MutableStateFlow(UserListState(isLoading = true))
+    val state: StateFlow<UserListState> = _state.asStateFlow()
 
     /**
      * This function get the Users List from Repository via UserListUsecase
      */
     suspend fun getUsersList() {
-        usersListUsecase.invoke().onEach { result ->
+        viewModelScope.launch {
+            val result = usersListUsecase.invoke()
+
             when (result) {
                 is Resource.Success -> {
-                    _state.value = UserListState(userList = result.data ?: emptyList())
+                    _state.value = UserListState(userList = result.data)
                 }
 
                 is Resource.Error -> {
                     _state.value =
-                        UserListState(error = result.message ?: "Unexpected error occurred!")
+                        UserListState(error = result.message)
                 }
 
                 is Resource.Loading -> {
@@ -40,7 +41,7 @@ class UserListViewModel @Inject constructor(private val usersListUsecase: GetUse
                 }
             }
 
-        }.launchIn(viewModelScope)
+        }
     }
 
 }

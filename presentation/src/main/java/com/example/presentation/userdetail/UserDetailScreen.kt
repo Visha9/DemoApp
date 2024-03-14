@@ -8,6 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +28,7 @@ fun UserDetailScreen(viewModel: UserDetailViewModel = hiltViewModel()) {
         viewModel.getUser()
         viewModel.getUserRepositories()
     })
-    val state = viewModel.state.value
+    val state by viewModel.state.collectAsState()
     when {
         state.isLoading -> LoadingItem(
             modifier = Modifier
